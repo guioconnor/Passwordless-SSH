@@ -3,10 +3,15 @@
 filename="id_rsa"
 path="$HOME/.ssh"
 
-if [ $1 -a $2 ]
+if [ $1 ]
 then
     hostname=$1
-    username=$2
+    if [ $2]
+    then
+        username=$2
+    else
+        username="$USER"
+    fi
 else
     # Read the host and username to store public key (the host/username accepting passwordless ssh from this computer)
     echo "What host you want to grant passwordless SSH from this computer?"
