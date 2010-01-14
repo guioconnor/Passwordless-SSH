@@ -6,7 +6,7 @@ path="$HOME/.ssh"
 if [ $1 ]
 then
     hostname=$1
-    if [ $2]
+    if [ $2 ]
     then
         username=$2
     else
