@@ -14,7 +14,7 @@ then
     fi
 else
     # Read the host and username to store public key (the host/username accepting passwordless ssh from this computer)
-    echo "What host you want to grant passwordless SSH from this computer?"
+    echo "What host you want to access with passwordless SSH from this computer?"
     read hostname
     echo "What is your username on $hostname? ($USER?)"
     read username
