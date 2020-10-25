@@ -25,7 +25,6 @@ else
     fi
 fi
 
-
 # Generate rsa files
 if [ -f $path/$filename ]
 then
@@ -35,8 +34,16 @@ else
     echo RSA key pair generated
 fi
 
-echo "We need to log into $hostname as $username to set up your public key (hopefully last time you'll use password from this computer)" 
-cat "$path/$filename.pub" | ssh "$hostname" -l "$username" '[ -d .ssh ] || mkdir .ssh; cat >> .ssh/authorized_keys; chmod 700 ~/.ssh; chmod 600 ~/.ssh/authorized_keys'
+# Avoid duplicate keys in authorized_keys, user can run this all the time
+echo "We need to log into $hostname as $username to set up your public key (hopefully last time you'll use password from this computer)"
+cat "$path/$filename.pub" | ssh "$hostname" -l "$username" ' > /tmp/KEY ; [ -d ~/.ssh ] || \
+                                                             mkdir -p ~/.ssh ; \
+                                                             KEY=$(cat /tmp/KEY) ; \
+                                                             export KEY ; \
+                                                             grep -q "$KEY" ~/.ssh/authorized_keys || \
+                                                             cat /tmp/KEY >> .ssh/authorized_keys ; \
+                                                             chmod 700 ~/.ssh ; \
+                                                             chmod 600 ~/.ssh/authorized_keys '
 status=$?
 
 if [ $status -eq 0 ]
