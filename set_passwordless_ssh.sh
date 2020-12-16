@@ -36,14 +36,16 @@ fi
 
 # Avoid duplicate keys in authorized_keys, user can run this all the time
 echo "We need to log into $hostname as $username to set up your public key (hopefully last time you'll use password from this computer)"
-cat "$path/$filename.pub" | ssh "$hostname" -l "$username" ' > /tmp/KEY ; [ -d ~/.ssh ] || \
+cat "$path/$filename.pub" | ssh "$hostname" -l "$username" ' [ -d ~/.ssh ] || \
                                                              mkdir -p ~/.ssh ; \
-                                                             KEY=$(cat /tmp/KEY) ; \
+                                                             cat > ~/.ssh/KEY ; \
+                                                             KEY=$(cat ~/.ssh/KEY) ; \
                                                              export KEY ; \
                                                              grep -q "$KEY" ~/.ssh/authorized_keys || \
-                                                             cat /tmp/KEY >> .ssh/authorized_keys ; \
+                                                             cat ~/.ssh/KEY >> .ssh/authorized_keys ; \
                                                              chmod 700 ~/.ssh ; \
-                                                             chmod 600 ~/.ssh/authorized_keys '
+                                                             chmod 600 ~/.ssh/authorized_keys ;
+                                                             rm ~/.ssh/KEY'
 status=$?
 
 if [ $status -eq 0 ]
