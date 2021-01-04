@@ -1,10 +1,10 @@
 This script helps configure passwordless SSH between two machines.
 
-SCOPE
+# SCOPE
 The script itself is nothing more than putting in line the few commands needed to set up this rather simple, if annoying, procedure and should keep
 you focusing on the important stuff rather than remembering syntax details.
 
-USAGE 
+# USAGE
 You must place this script on the client machine and run it. You can provide two arguments on the command line, the first one is the hostname that will
 accept passwordless login and the second one is the username on that machine.
 
