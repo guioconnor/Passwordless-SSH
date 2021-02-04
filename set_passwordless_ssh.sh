@@ -50,9 +50,9 @@ status=$?
 
 if [ $status -eq 0 ]
 then
-    echo "Set up complete, try to ssh to $host now"
+    echo "Set up complete, try to ssh to $hostname now"
     exit 0
 else
-    echo "an error has occured"
+    echo "An error has occured"
     exit 255
 fi
