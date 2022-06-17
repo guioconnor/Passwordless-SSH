@@ -9,3 +9,18 @@ You must place this script on the client machine and run it. You can provide two
 accept passwordless login and the second one is the username on that machine.
 
 If the second argument is ommited, the username will default to the username on the client machine and if both arguments are omitted, they will be asked interactively.
+
+# DOCKER
+There is a containerized version at
+https://hub.docker.com/r/guioconnor/set_passwordless_ssh/
+
+You can use this version without having to clone or download this repo. Simply use
+
+```
+docker run -it -e "COMMENT=$USER@$HOSTNAME" -v ~/.ssh:/root/.ssh guioconnor/set_passwordless_ssh
+```
+
+This will
+* Run the script inside a container
+* Save the keys on your `~/.ssh folder`. You can customise this path.
+* Use `$USER@$HOSTNAME on your computer as the key comment. You can customise this comment.

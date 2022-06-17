@@ -25,12 +25,18 @@ else
     fi
 fi
 
+# Use provided comment or default to user@hostname
+if [ -z "$COMMENT" ]
+then
+    COMMENT=`whoami`@`hostname`
+fi
+
 # Generate rsa files
 if [ -f $path/$filename ]
 then
     echo "RSA key exists on $path/$filename, using existing file"
 else
-    ssh-keygen -t rsa -f "$path/$filename"
+    ssh-keygen -t rsa -f "$path/$filename" -C "$COMMENT"
     echo RSA key pair generated
 fi
 
